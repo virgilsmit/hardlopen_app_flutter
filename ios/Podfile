@@ -23,6 +23,13 @@ def flutter_root
   raise 'FLUTTER_ROOT not found in Generated.xcconfig. Try deleting Flutter/Generated.xcconfig and running flutter pub get.'
 end
 
+# Stub for legacy call: ensure build does not fail if any plugin invokes flutter_post_install
+def flutter_post_install(installer)
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
+end
+
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
