@@ -25,6 +25,8 @@ end
 
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'pod_helper'), flutter_root)
 
+flutter_ios_podfile_setup
+
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
@@ -33,6 +35,7 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  flutter_post_install(installer)
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
